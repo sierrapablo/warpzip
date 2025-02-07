@@ -4,7 +4,7 @@ This document outlines the coding style and best practices to follow when contri
 
 ## General Guidelines
 
-1. **Use Rust's Official Style**: Follow the [Rust style guide](https://doc.rust-lang.org/stable/style/) for indentation, line breaks, and general formatting.
+1. **Use Rust's Official Style**: Follow the [Rust style guide](https://doc.rust-lang.org/nightly/style-guide/) for indentation, line breaks, and general formatting.
 2. **Indentation**: Use 4 spaces for indentation (do not use tabs).
 3. **Line Length**: Try to limit lines to 100 characters. If a line exceeds this length, break it into multiple lines as needed.
 4. **Function Naming**: Use `snake_case` for function names (e.g., `my_function()`).
