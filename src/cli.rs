@@ -30,6 +30,10 @@ pub enum Commands {
         /// Force overwrite existing files
         #[arg(short, long)]
         force: bool,
+
+        /// Type of archive to create: tar.gz or zip
+        #[arg(long, default_value = "tar.gz", value_parser = clap::builder::PossibleValuesParser::new(["tar.gz", "zip"]))]
+        archive_type: String,
     },
 
     /// Decompress files
@@ -57,12 +61,27 @@ pub fn run_cli() -> Result<(), String> {
             output,
             level,
             force,
+            archive_type,
         } => {
             println!(
-                "Compressing {} -> {:?} (level: {}, force: {})",
-                input, output, level, force
+                "Compressing {} -> {:?} (level: {}, force: {}, archive_type: {})",
+                input, output, level, force, archive_type
             );
-            crate::compression::compress(&input, output, level, force)
+
+            match archive_type.as_str() {
+                "tar.gz" => {
+                    let output = output.unwrap_or_else(|| format!("{}.tar.gz", input));
+                    crate::compression::compress_tar_gz(&input, &output)
+                        .map_err(|e| e.to_string())?;
+                }
+                "zip" => {
+                    let output = output.unwrap_or_else(|| format!("{}.zip", input));
+                    crate::compression::compress_zip(&input, &output).map_err(|e| e.to_string())?;
+                }
+                _ => return Err("Unsupported archive type".to_string()),
+            }
+
+            Ok(())
         }
         Commands::Unwarp {
             input,
