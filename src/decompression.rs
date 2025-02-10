@@ -1,10 +1,8 @@
-pub fn decompress(args: &[String]) -> Result<(), String> {
-    if args.is_empty() {
-        return Err("No input files provided".to_string());
+pub fn decompress(input: &str, output: Option<String>, list: bool) -> Result<(), String> {
+    if list {
+        println!("Listing contents of {}", input);
+    } else {
+        println!("Extracting {} to {:?}", input, output);
     }
-
-    println!("Decompressing files: {:?}", args);
-    // Lógica de descompresión...
-
     Ok(())
 }

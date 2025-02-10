@@ -1,10 +1,12 @@
-pub fn compress(args: &[String]) -> Result<(), String> {
-    if args.is_empty() {
-        return Err("No input files provided".to_string());
-    }
-
-    println!("Compressing files: {:?}", args);
-    // Lógica de compresión...
-
+pub fn compress(
+    input: &str,
+    _output: Option<String>,
+    level: u8,
+    force: bool,
+) -> Result<(), String> {
+    println!(
+        "Compressing {} with level {} (force: {})",
+        input, level, force
+    );
     Ok(())
 }
